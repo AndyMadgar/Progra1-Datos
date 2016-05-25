@@ -27,7 +27,6 @@ void cargarPasajeros(){
     int peso;
     int estatura;
     QString destino;
-    listaEquipaje *maletas;
     int pesoMaleta;
     bool isHand;
     QStringList data;
@@ -41,9 +40,10 @@ void cargarPasajeros(){
         nacio = data.at(4);
         peso = data.at(5).toInt();
         estatura = data.at(6).toInt();
-        pesoMaleta = data.at(7).toInt();
-        isHand = data.at(8).toBool();
-        destino = "";
+        destino = data.at(7);
+        pesoMaleta = data.at(8).toInt();
+        isHand = data.at(9).toInt() == 1; // 1=true 0=false
+
         nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino);
         Equipaje *mal = new Equipaje(pesoMaleta, nuevo, isHand);
         nuevo->equipaje->insertar(mal);
