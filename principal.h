@@ -16,14 +16,18 @@ class Principal : public QMainWindow
 public:
     explicit Principal(QWidget *parent = 0);
     ~Principal();
-    listaPasajero *ColaEspera;
-    listaPasajero *ColaTickets;
-    listaTrenes *ColaTrenes;
+    listaPasajero *colaEspera = new listaPasajero();
+    listaPasajero *colaTicket = new listaPasajero();
+    listaTrenes *colaTrenes = new listaTrenes();
 
 private slots:
-    void on_btnAgregaPasajero_clicked();
+    void on_btnAgregaPasajeros_clicked();
 
     void on_btnAgregaTren_clicked();
+
+    void on_btnActualizar_clicked();
+
+    void on_lstTickets_itemDoubleClicked();
 
 private:
     Ui::Principal *ui;

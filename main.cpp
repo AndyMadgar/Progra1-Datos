@@ -11,7 +11,7 @@ listaPasajero *pasajeros = new listaPasajero();
 listaTrenes *listTrenes = new listaTrenes();
 
 void cargarPasajeros(){
-    QFile file("/home/shiki/Documentos/Datos/I Proyecto/I_Proyecto/Datos/Pasajeros.xlsx");
+    QFile file("/home/shiki/Documentos/Datos/Estacion_Trenes/Datos/Pasajeros.xlsx");
     if(!file.open(QFile::ReadOnly | QFile::Text)){
         qDebug() << "No se pudo cargar el archivo de pasajeros";
         return;
@@ -55,7 +55,7 @@ void cargarPasajeros(){
 }
 
 void cargarTrenes(){
-    QFile file("/home/shiki/Documentos/Datos/I Proyecto/I_Proyecto/Datos/Trenes.xlsx");
+    QFile file("/home/shiki/Documentos/Datos/Estacion_Trenes/Datos/Trenes.xlsx");
     if(!file.open(QFile::ReadOnly | QFile::Text)){
         qDebug() << "No se pudo cargar el archivo de trenes";
         return;
@@ -79,17 +79,10 @@ void cargarTrenes(){
     file.flush();
     file.close();
 }
-
-int main(int argc, char *argv[]){
-
+int main(int argc, char *argv[])
+{
     QApplication a(argc, argv);
-
-    cargarPasajeros();
-    cargarTrenes();
-
     Principal w;
-    w.ColaTrenes = listTrenes;
-    w.ColaTickets = pasajeros;
     w.show();
 
     return a.exec();

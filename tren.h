@@ -1,7 +1,8 @@
 #ifndef TREN_H
 #define TREN_H
-#include "equipaje.h"
+#include <QString>
 #include "pasajero.h"
+#include "equipaje.h"
 
 class Tren{
 public:
@@ -9,14 +10,11 @@ public:
     class listaEquipaje *bodega;
     QString destino;
     QString capitan;
-    int placa;
-    int pesoBodega;
-    int pesoPasajero;
-    int pesoTotal;
+    QString placa;
+    int pesoBodega=500;
+    int pesoPasajero=300;
     class Tren *siguiente;
-
     Tren(QString, QString, int);
-
 };
 
 class listaTrenes{
@@ -25,7 +23,7 @@ public:
     listaTrenes(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
     void insertar(Tren *);
-    Tren *buscar(int);
+    Tren *buscar(QString);
 };
 
 #endif // TREN_H

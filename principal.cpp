@@ -1,7 +1,12 @@
 #include "principal.h"
 #include "ui_principal.h"
-#include "vagregarpasajero.h"
-#include "vagregartrenes.h"
+#include "vagregapasajero.h"
+#include "vagregartren.h"
+#include "vmuestrapasajero.h"
+#include <QString>
+#include <QDebug>
+
+
 Principal::Principal(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Principal)
@@ -14,24 +19,53 @@ Principal::~Principal()
     delete ui;
 }
 
-void Principal::on_btnAgregaPasajero_clicked()
+void Principal::on_btnAgregaPasajeros_clicked()
 {
-    vAgregarPasajero ventana;
-    ventana.setModal(true);
-    this->setVisible(false);
-    ventana.exec();
-    while(ventana.isVisible()){
-    }
-    this->setVisible(true);
-}
+    vagregapasajero *v = new vagregapasajero();
+    v->colaEspera = this->colaEspera;
+    v->colaTicket = this->colaTicket;
+    v->colaTrenes = this->colaTrenes;
 
+    v->setVisible(true);
+    this->close();
+    v->exec();
+}
 void Principal::on_btnAgregaTren_clicked()
 {
-    vAgregarTrenes ventana;
-    ventana.setModal(true);
-    this->setVisible(false);
-    ventana.exec();
-    while(ventana.isVisible()){
+    vagregartren *v = new vagregartren();
+    v->colaEspera = this->colaEspera;
+    v->colaTicket = this->colaTicket;
+    v->colaViajes = this->colaTrenes;
+
+    v->setVisible(true);
+    this->close();
+    v->exec();
+}
+
+void Principal::on_btnActualizar_clicked()
+{
+    ui->lstTickets->repaint();
+    Pasajero *tmp = this->colaTicket->primero;
+    while(tmp != NULL){
+        QString x = tmp->nombre + "|" + QString::number(tmp->ID);
+        qDebug() << x;
+        ui->lstTickets->addItem(x);
+        tmp = tmp->siguiente;
     }
-    this->setVisible(true);
+}
+
+void Principal::on_lstTickets_itemDoubleClicked()
+{
+    vmuestrapasajero *v = new vmuestrapasajero();
+    v->colaEspera = this->colaEspera;
+    v->colaTicket = this->colaTicket;
+    v->colaTrenes = this->colaTrenes;
+
+    int id = ui->lstTickets->currentItem()->text().split("|").at(1).toInt();
+    v->amo = this->colaTicket->buscar(id);
+
+    v->setVisible(true);
+    this->close();
+    v->exec();
+
 }

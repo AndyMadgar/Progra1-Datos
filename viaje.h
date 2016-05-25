@@ -6,13 +6,12 @@
 class Viaje{
 public:
     Tren *transporte;
-    QString inicio;
-    QString final;
+    QDateTime inicio;
+    QDateTime final;
     int transcurrido;
     int restante;
-    int total;
     class Viaje *siguiente;
-    Viaje(Tren*, QString, QString);
+    Viaje(Tren*, QDateTime, QDateTime);
 
 };
 
@@ -25,6 +24,7 @@ public:
     void Insertar(Viaje *nuevo);
     Viaje *buscar();
     //void eliminar();
+    void ajustarTiempos();
 
 };
 

@@ -1,4 +1,6 @@
 #include "pasajero.h"
+#include "equipaje.h"
+#include "ticket.h"
 #include <QDebug>
 
 Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QString pNacionalidad, int pPeso, int pEstatura, QString pDestino){
@@ -10,6 +12,8 @@ Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QStrin
     this->peso = pPeso;
     this->estatura = pEstatura;
     this->destino = pDestino;
+    this->equipaje = new listaEquipaje();
+    this->tickets = new listaTickets();
     this->siguiente = NULL;
 }
 

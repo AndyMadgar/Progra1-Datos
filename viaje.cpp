@@ -1,6 +1,6 @@
 #include "viaje.h"
 
-Viaje::Viaje(Tren *pTransporte, QString pInicio, QString pFinal){
+Viaje::Viaje(Tren *pTransporte, QDateTime pInicio, QDateTime pFinal){
     this->transporte = pTransporte;
     this->inicio = pInicio;
     this->final = pFinal;
@@ -18,4 +18,26 @@ void listaViajes::Insertar(Viaje *nuevo){
         }
         tmp->siguiente = nuevo;
     }
+}
+
+void listaViajes::ajustarTiempos(Viaje *tmp){
+    QDateTime actual= QDateTime.currentDateTime();
+    if (tmp->final>=actual){
+        tmp2=tmp->siguiente;
+        ajustarTiempos(tmp2);
+    }
+    else{
+    }
+    while(tmp->siguiente != NULL){
+        actual= QDateTime.currentDateTime();
+        if (tmp->siguiente->final>=actual){
+            inicio=tmp->siguiente;
+        }
+        else(){
+
+        }
+        tmp = tmp->siguiente;
+    }
+
+
 }

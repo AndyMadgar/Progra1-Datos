@@ -21,7 +21,7 @@ void listaTrenes::insertar(Tren *nuevo){
     }
 }
 
-Tren *listaTrenes::buscar(int placa){
+Tren *listaTrenes::buscar(QString placa){
     if(listaVacia()){
         return NULL;
     }

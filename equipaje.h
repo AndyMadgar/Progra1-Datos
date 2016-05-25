@@ -17,7 +17,6 @@ public:
     listaEquipaje(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
     void insertar(Equipaje *);
-
 };
 
 #endif // EQUIPAJE_H
