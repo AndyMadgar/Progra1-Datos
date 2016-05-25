@@ -1,7 +1,8 @@
 #ifndef TREN_H
 #define TREN_H
-#include "equipaje.h"
+#include <QString>
 #include "pasajero.h"
+#include "equipaje.h"
 
 class Tren{
 public:
@@ -14,9 +15,8 @@ public:
     int pesoPasajero;
     int pesoTotal;
     class Tren *siguiente;
-
     Tren(QString, QString, int);
-
+    bool calcEspacio(Pasajero*);
 };
 
 class listaTrenes{
