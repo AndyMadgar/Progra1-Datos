@@ -1,7 +1,6 @@
 #include "vagregartren.h"
 #include "ui_vagregartren.h"
 #include "principal.h"
-#include "viaje.h"
 
 vagregartren::vagregartren(QWidget *parent) :
     QDialog(parent),
@@ -20,7 +19,7 @@ void vagregartren::on_btnVolver_clicked()
     Principal *p = new Principal();
     p->colaEspera = this->colaEspera;
     p->colaTicket = this->colaTicket;
-    p->colaTrenes = this->colaViajes;
+    p->colaTrenes = this->colaTrenes;
 
     p->setVisible(true);
     this->close();
@@ -34,12 +33,12 @@ void vagregartren::on_btnAgregar_clicked()
     int placa = ui->txfPlaca->text().toInt();
 
     Tren *nuevo = new Tren(destino, capitan, placa);
-    this->colaViajes->insertar(nuevo);
+    this->colaTrenes->insertar(nuevo);
 
     Principal *p = new Principal();
     p->colaEspera = this->colaEspera;
     p->colaTicket = this->colaTicket;
-    p->colaTrenes = this->colaViajes;
+    p->colaTrenes = this->colaTrenes;
 
     p->setVisible(true);
     this->close();

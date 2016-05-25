@@ -15,7 +15,8 @@ public:
     class listaEquipaje *equipaje;
     class Pasajero *siguiente;
 
-    Pasajero(QString, QString, int, int, QString, int, int, QString);};
+        Pasajero(QString, QString, int, int, QString, int, int, QString);
+};
 
 class listaPasajero{
 public:

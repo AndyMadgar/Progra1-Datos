@@ -21,10 +21,7 @@ SOURCES += main.cpp\
     vagregaequipaje.cpp \
     vagregartren.cpp \
     vmuestrapasajero.cpp \
-    ../../I-Proyecto/I Proyecto/I_Proyecto/ticket.cpp \
-    ../../I-Proyecto/I Proyecto/I_Proyecto/viaje.cpp \
-    viaje.cpp \
-    ticket.cpp
+    hilo.cpp
 
 HEADERS  += principal.h \
     pasajero.h \
@@ -34,10 +31,7 @@ HEADERS  += principal.h \
     vagregaequipaje.h \
     vagregartren.h \
     vmuestrapasajero.h \
-    ../../I-Proyecto/I Proyecto/I_Proyecto/ticket.h \
-    ../../I-Proyecto/I Proyecto/I_Proyecto/viaje.h \
-    viaje.h \
-    ticket.h
+    hilo.h
 
 FORMS    += principal.ui \
     vagregapasajero.ui \
@@ -47,6 +41,3 @@ FORMS    += principal.ui \
 
 RESOURCES += \
     Imagenes.qrc
-
-DISTFILES += \
-    ../WhatsApp-Image-20160518.jpg

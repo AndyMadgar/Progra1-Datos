@@ -6,6 +6,7 @@
 #include "pasajero.h"
 #include "tren.h"
 #include "equipaje.h"
+#include "hilo.h"
 
 listaPasajero *pasajeros = new listaPasajero();
 listaTrenes *listTrenes = new listaTrenes();
@@ -72,16 +73,25 @@ void cargarTrenes(){
         destino = "";
         capitan = data.at(0);
         placa = data.at(1).toInt();
-
+        incio= data.at(2).toInt();
+        final=data.at(3).toInt();
         nuevo = new Tren(destino, capitan, placa);
         listTrenes->insertar(nuevo);
     }
     file.flush();
     file.close();
 }
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    Hilo *h1 = new Hilo();
+    h1->start();
+
+    cargarPasajeros();
+    cargarTrenes();
+
     Principal w;
     w.show();
 

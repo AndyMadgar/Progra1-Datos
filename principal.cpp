@@ -35,7 +35,7 @@ void Principal::on_btnAgregaTren_clicked()
     vagregartren *v = new vagregartren();
     v->colaEspera = this->colaEspera;
     v->colaTicket = this->colaTicket;
-    v->colaViajes = this->colaTrenes;
+    v->colaTrenes = this->colaTrenes;
 
     v->setVisible(true);
     this->close();

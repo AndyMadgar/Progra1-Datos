@@ -15,6 +15,7 @@ public:
     int pesoPasajero=300;
     class Tren *siguiente;
     Tren(QString, QString, int);
+    bool calcEspacio(Pasajero*);
 };
 
 class listaTrenes{

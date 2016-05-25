@@ -19,7 +19,7 @@ public:
     ~vagregartren();
     listaPasajero *colaEspera = new listaPasajero();
     listaPasajero *colaTicket = new listaPasajero();
-    listaTrenes *colaViajes = new listaTrenes();
+    listaTrenes *colaTrenes = new listaTrenes();
 
 private slots:
     void on_btnVolver_clicked();
