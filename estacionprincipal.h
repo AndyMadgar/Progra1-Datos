@@ -8,7 +8,7 @@ class EstacionPrincipal{
 public:
     Viaje *viajesCurso;
    // Hilo *hilo;
-    trenes Ltrenes;
+    listaTrenes *ColaTrenes;
     //Cola *compraTickets;
     //Cola *esperaTren;
     Viaje *viajes;

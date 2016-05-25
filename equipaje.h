@@ -2,22 +2,22 @@
 #define EQUIPAJE_H
 #include "pasajero.h"
 
-typedef class Equipaje{
+class Equipaje{
 public:
     int peso;
-    Pasajero *amo;
+    class Pasajero *amo;
     bool isInHand;
     class Equipaje *siguiente;
-    Equipaje(int, Pasajero*, bool);
-}*maleta;
+    Equipaje(int, Pasajero *, bool);
+};
 
-typedef class listaEquipaje{
+class listaEquipaje{
 public:
-    maleta primero;
+    Equipaje *primero;
     listaEquipaje(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
-    void insertar(maleta);
+    void insertar(Equipaje *);
 
-}*lMaleta;
+};
 
 #endif // EQUIPAJE_H

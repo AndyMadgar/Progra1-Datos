@@ -6,13 +6,13 @@ Equipaje::Equipaje(int pPeso, Pasajero *pAmo, bool pHand){
     this->isInHand = pHand;
 }
 
-void listaEquipaje::insertar(maleta equi){
+void listaEquipaje::insertar(Equipaje *equi){
     if(listaVacia()){
         primero = equi;
         return;
     }
     else{
-        maleta tmp = primero;
+        Equipaje *tmp = primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }

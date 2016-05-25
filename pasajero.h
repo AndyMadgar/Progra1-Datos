@@ -1,8 +1,10 @@
 #ifndef PASAJERO_H
 #define PASAJERO_H
 #include <QString>
+#include "ticket.h"
+#include "equipaje.h"
 
-typedef class Pasajero{
+class Pasajero{
 public:
     QString nombre;
     QString apellidos;
@@ -12,24 +14,25 @@ public:
     int telefono;
     int peso;
     int estatura;
-    //ListaEquipaje *equipaje;
+
+    class listaEquipaje *equipaje;
     class Pasajero *siguiente;
 
     Pasajero(QString, QString, int, int, QString, int, int, QString);
-}*pasajero;
+};
 
-typedef class listaPasajero{
+class listaPasajero{
 public:
-    pasajero primero;
+    Pasajero *primero;
 
     listaPasajero(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
-    void insertar(pasajero);
-    pasajero buscar(int);
+    void insertar(Pasajero *);
+    Pasajero *buscar(int);
     int cuentaPos(int);
     void eliminar(int);
     void Mostrar();
 
-}LPasajeros;
+};
 
 #endif // PASAJERO_H

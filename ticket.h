@@ -6,7 +6,7 @@ class Ticket
 {
 public:
     int asiento;
-    Tren *transporte;
+    class Tren *transporte;
     QString destino;
     Ticket(int, Tren*, QString);
 };

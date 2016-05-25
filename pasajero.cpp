@@ -13,12 +13,12 @@ Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QStrin
     this->siguiente = NULL;
 }
 
-void listaPasajero::insertar(pasajero pPasajero){
+void listaPasajero::insertar(Pasajero *pPasajero){
     if(listaVacia()){
         primero = pPasajero;
     }
     else{
-        pasajero tmp = primero;
+        Pasajero *tmp = primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }
@@ -26,12 +26,12 @@ void listaPasajero::insertar(pasajero pPasajero){
     }
 }
 
-pasajero listaPasajero::buscar(int id){
+Pasajero *listaPasajero::buscar(int id){
     if(listaVacia()){
         return NULL;
     }
     else{
-        pasajero tmp = primero;
+        Pasajero *tmp = primero;
         while(tmp != NULL){
             if(tmp->ID == id){
                 return tmp;
@@ -50,7 +50,7 @@ int listaPasajero::cuentaPos(int id){
         return pos;
     }
     else{
-        pasajero tmp = primero;
+        Pasajero *tmp = primero;
         while(tmp != NULL){
             if(tmp->ID == id){
                 return pos;
@@ -67,7 +67,7 @@ void listaPasajero::eliminar(int pos){
         return;
     }
     else{
-        pasajero tmp = primero;
+        Pasajero *tmp = primero;
         while(tmp != NULL && pos != 1){
             tmp = tmp->siguiente;
             pos--;
@@ -83,7 +83,7 @@ void listaPasajero::Mostrar(){
         return;
     }
     else{
-        pasajero tmp = primero;
+        Pasajero *tmp = primero;
         while(tmp != NULL){
             qDebug() << "Nombre: " << tmp->nombre;
             qDebug() << "Apellido: " << tmp->apellidos;

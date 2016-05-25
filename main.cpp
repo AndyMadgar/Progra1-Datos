@@ -5,9 +5,10 @@
 #include <QDebug>
 #include "pasajero.h"
 #include "tren.h"
+#include "equipaje.h"
 
 listaPasajero *pasajeros = new listaPasajero();
-trenes listTrenes = new listaTrenes();
+listaTrenes *listTrenes = new listaTrenes();
 
 void cargarPasajeros(){
     QFile file("/home/shiki/Documentos/Datos/I Proyecto/I_Proyecto/Datos/Pasajeros.xlsx");
@@ -15,7 +16,7 @@ void cargarPasajeros(){
         qDebug() << "No se pudo cargar el archivo de pasajeros";
         return;
     }
-    pasajero nuevo;
+    Pasajero *nuevo;
 
     QTextStream in(&file);
     QString nombre;
@@ -26,6 +27,9 @@ void cargarPasajeros(){
     int peso;
     int estatura;
     QString destino;
+    listaEquipaje *maletas;
+    int pesoMaleta;
+    bool isHand;
     QStringList data;
     while(!in.atEnd()){
         QString line = in.readLine();
@@ -37,9 +41,12 @@ void cargarPasajeros(){
         nacio = data.at(4);
         peso = data.at(5).toInt();
         estatura = data.at(6).toInt();
+        pesoMaleta = data.at(7).toInt();
+        isHand = data.at(8).toBool();
         destino = "";
-
         nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino);
+        Equipaje *mal = new Equipaje(pesoMaleta, nuevo, isHand);
+        nuevo->equipaje->insertar(mal);
         pasajeros->insertar(nuevo);
     }
     file.flush();
@@ -53,7 +60,7 @@ void cargarTrenes(){
         qDebug() << "No se pudo cargar el archivo de trenes";
         return;
     }
-    tren nuevo;
+    Tren *nuevo;
     QTextStream in(&file);
     QString destino;
     QString capitan;
@@ -73,15 +80,16 @@ void cargarTrenes(){
     file.close();
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]){
+
     QApplication a(argc, argv);
 
     cargarPasajeros();
     cargarTrenes();
 
-
     Principal w;
+    w.ColaTrenes = listTrenes;
+    w.ColaTickets = pasajeros;
     w.show();
 
     return a.exec();

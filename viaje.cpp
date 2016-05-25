@@ -1,18 +1,18 @@
 #include "viaje.h"
 
-Viaje::Viaje(tren pTransporte, QString pInicio, QString pFinal){
+Viaje::Viaje(Tren *pTransporte, QString pInicio, QString pFinal){
     this->transporte = pTransporte;
     this->inicio = pInicio;
     this->final = pFinal;
     this->siguiente = NULL;
 }
 
-void listaViajes::Insertar(viaje nuevo){
+void listaViajes::Insertar(Viaje *nuevo){
     if(listaVacia()){
         primero = nuevo;
     }
     else{
-        viaje tmp = primero;
+        Viaje *tmp = primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }

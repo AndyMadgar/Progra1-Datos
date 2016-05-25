@@ -3,9 +3,9 @@
 #include "tren.h"
 #include <QDateTime>
 
-typedef class Viaje{
+class Viaje{
 public:
-    tren transporte;
+    Tren *transporte;
     QString inicio;
     QString final;
     int transcurrido;
@@ -14,18 +14,18 @@ public:
     class Viaje *siguiente;
     Viaje(Tren*, QString, QString);
 
-}*viaje;
+};
 
 
-typedef class listaViajes{
+class listaViajes{
 public:
-    viaje primero;
+    class Viaje *primero;
     listaViajes(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
-    void Insertar(viaje nuevo);
-    viaje buscar();
+    void Insertar(Viaje *nuevo);
+    Viaje *buscar();
     //void eliminar();
 
-}*viajes;
+};
 
 #endif // VIAJE_H

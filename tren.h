@@ -1,17 +1,12 @@
 #ifndef TREN_H
 #define TREN_H
 #include "equipaje.h"
+#include "pasajero.h"
 
-typedef class listaAsiento{
+class Tren{
 public:
-    int numero;
-    class listaAsiento *siguiente;
-}*asiento;
-
-typedef class Tren{
-public:
-    asiento asientos;
-    listaEquipaje bodega;
+    class listaPasajero *listaAsientos;
+    class listaEquipaje *bodega;
     QString destino;
     QString capitan;
     int placa;
@@ -22,16 +17,15 @@ public:
 
     Tren(QString, QString, int);
 
-}*tren;
+};
 
-typedef class listaTrenes{
+class listaTrenes{
 public:
-    tren primero;
+    class Tren *primero;
     listaTrenes(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
-    void insertar(tren);
-    tren buscar(int);
-
-}*trenes;
+    void insertar(Tren *);
+    Tren *buscar(int);
+};
 
 #endif // TREN_H

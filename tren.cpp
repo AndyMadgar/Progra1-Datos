@@ -7,13 +7,13 @@ Tren::Tren(QString pDestino, QString pCapitan, int pPlaca){
     siguiente = NULL;
 }
 
-void listaTrenes::insertar(tren nuevo){
+void listaTrenes::insertar(Tren *nuevo){
     if(listaVacia()){
         primero = nuevo;
         return;
     }
     else{
-        tren tmp = primero;
+        Tren *tmp = primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }
@@ -21,12 +21,12 @@ void listaTrenes::insertar(tren nuevo){
     }
 }
 
-tren listaTrenes::buscar(int placa){
+Tren *listaTrenes::buscar(int placa){
     if(listaVacia()){
         return NULL;
     }
     else{
-        tren tmp = primero;
+        Tren *tmp = primero;
         while(tmp->siguiente != NULL){
             if(tmp->placa == placa){
                 return tmp;

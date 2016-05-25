@@ -17,14 +17,17 @@ vAgregarPasajero::~vAgregarPasajero()
 
 void vAgregarPasajero::on_btnAgregarPasajero_clicked()
 {
-    QString nombre=ui->txtfNombre->text();
-    QString apellidos=ui->txtfNombre->text();
-    QString nacionalidad=ui->txtfNombre->text();
-    QString destino=ui->cmbxDestino->currentText();
-    int ID=ui->txtfID->text().toInt();
-    int telefono=ui->txtfTel->text().toInt();
-    int peso=ui->txtfPeso->text().toInt();
-    int estatura=ui->txtfEstatura->text().toInt();
-    Pasajero pas=new Pasajero();
-    Principal.ColaTickets->insertar();
+    QString pNombre=ui->txtfNombre->text();
+    QString pApellido=ui->txtfNombre->text();
+    QString pNacionalidad=ui->txtfNombre->text();
+    QString pDestino=ui->cmbxDestino->currentText();
+    int pID=ui->txtfID->text().toInt();
+    int pTelefono=ui->txtfTel->text().toInt();
+    int pPeso=ui->txtfPeso->text().toInt();
+    int pEstatura=ui->txtfEstatura->text().toInt();
+
+    Principal *p;
+
+    Pasajero *pas = new Pasajero(pNombre, pApellido, pID, pTelefono, pNacionalidad, pPeso, pEstatura, pDestino);
+    p->ColaTickets->insertar(pas);
 }
