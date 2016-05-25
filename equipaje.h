@@ -18,6 +18,6 @@ public:
     bool listaVacia(){return primero == NULL;}
     void insertar(maleta);
 
-}*listaMaleta;
+}*lMaleta;
 
 #endif // EQUIPAJE_H

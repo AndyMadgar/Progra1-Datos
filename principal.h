@@ -2,8 +2,6 @@
 #define PRINCIPAL_H
 
 #include <QMainWindow>
-#include "pasajero.h"
-#include "tren.h"
 
 namespace Ui {
 class Principal;
@@ -16,12 +14,6 @@ class Principal : public QMainWindow
 public:
     explicit Principal(QWidget *parent = 0);
     ~Principal();
-    listaPasajero *ColaEspera;
-    listaPasajero *ColaTickets;
-    listaTrenes ListaTrenes;
-
-private slots:
-    void on_btnAgregaPasajero_clicked();
 
 private:
     Ui::Principal *ui;

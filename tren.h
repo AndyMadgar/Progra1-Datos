@@ -32,6 +32,6 @@ public:
     void insertar(tren);
     tren buscar(int);
 
-}*listaTrenes;
+}*trenes;
 
 #endif // TREN_H

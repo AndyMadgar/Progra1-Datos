@@ -1,8 +1,6 @@
 #ifndef PASAJERO_H
 #define PASAJERO_H
 #include <QString>
-#include "ticket.h"
-#include "equipaje.h"
 
 typedef class Pasajero{
 public:
@@ -14,7 +12,6 @@ public:
     int telefono;
     int peso;
     int estatura;
-
     //ListaEquipaje *equipaje;
     class Pasajero *siguiente;
 

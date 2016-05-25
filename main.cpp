@@ -7,7 +7,7 @@
 #include "tren.h"
 
 listaPasajero *pasajeros = new listaPasajero();
-listaTrenes listTrenes = new listaTrenes();
+trenes listTrenes = new listaTrenes();
 
 void cargarPasajeros(){
     QFile file("/home/shiki/Documentos/Datos/I Proyecto/I_Proyecto/Datos/Pasajeros.xlsx");
@@ -73,16 +73,15 @@ void cargarTrenes(){
     file.close();
 }
 
-int main(int argc, char *argv[]){
-
+int main(int argc, char *argv[])
+{
     QApplication a(argc, argv);
 
     cargarPasajeros();
     cargarTrenes();
 
+
     Principal w;
-    w.ListaTrenes = listTrenes;
-    w.ColaTickets = pasajeros;
     w.show();
 
     return a.exec();
