@@ -2,7 +2,9 @@
 #include "ui_vagregarpasajero.h"
 #include "principal.h"
 #include "pasajero.h"
-
+#include "vagregarmaleta.h"
+#include <QDebug>
+#include "main.cpp"
 vAgregarPasajero::vAgregarPasajero(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::vAgregarPasajero){
@@ -26,8 +28,19 @@ void vAgregarPasajero::on_btnAgregarPasajero_clicked()
     int pPeso=ui->txtfPeso->text().toInt();
     int pEstatura=ui->txtfEstatura->text().toInt();
 
-    Principal *p;
+    Principal *p=main.;
 
     Pasajero *pas = new Pasajero(pNombre, pApellido, pID, pTelefono, pNacionalidad, pPeso, pEstatura, pDestino);
+
+    vAgregarMaleta ventan;
+    ventan.setModal(true);
+    ventan.amo=pas;
+    ventan.ventanaPasajero=this;
+    this->setVisible(false);
+    ventan.exec();
+    qDebug() << "Agregado";
+
     p->ColaTickets->insertar(pas);
+
+    this->close();
 }

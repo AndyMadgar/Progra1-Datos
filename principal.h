@@ -23,6 +23,8 @@ public:
 private slots:
     void on_btnAgregaPasajero_clicked();
 
+    void on_btnAgregaTren_clicked();
+
 private:
     Ui::Principal *ui;
 };

@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     tren.cpp \
     estacionprincipal.cpp \
     viaje.cpp \
-    vagregarpasajero.cpp
+    vagregarpasajero.cpp \
+    vagregartrenes.cpp \
+    vagregarmaleta.cpp
 
 HEADERS  += principal.h \
     pasajero.h \
@@ -29,10 +31,14 @@ HEADERS  += principal.h \
     tren.h \
     estacionprincipal.h \
     viaje.h \
-    vagregarpasajero.h
+    vagregarpasajero.h \
+    vagregartrenes.h \
+    vagregarmaleta.h
 
 FORMS    += principal.ui \
-    vagregarpasajero.ui
+    vagregarpasajero.ui \
+    vagregartrenes.ui \
+    vagregarmaleta.ui
 
 RESOURCES += \
     imagenes.qrc
