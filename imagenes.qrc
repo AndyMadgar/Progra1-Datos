@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>mapa_provincias_costa_rica.gif</file>
+    </qresource>
+</RCC>
