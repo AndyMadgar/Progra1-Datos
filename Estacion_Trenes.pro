@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     vmuestrapasajero.cpp \
     hilo.cpp \
     ticket.cpp \
-    viaje.cpp
+    viaje.cpp \
+    controlador.cpp
 
 HEADERS  += principal.h \
     pasajero.h \
@@ -35,7 +36,8 @@ HEADERS  += principal.h \
     vmuestrapasajero.h \
     hilo.h \
     ticket.h \
-    viaje.h
+    viaje.h \
+    controlador.h
 
 FORMS    += principal.ui \
     vagregapasajero.ui \
