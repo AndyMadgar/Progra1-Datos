@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>Mapa</file>
+        <file>UML.jpg</file>
     </qresource>
 </RCC>

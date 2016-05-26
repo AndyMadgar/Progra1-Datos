@@ -21,7 +21,7 @@ void vagregapasajero::on_btnVolver_clicked()
     Principal *p = new Principal();
     p->colaEspera = this->colaEspera;
     p->colaTicket = this->colaTicket;
-    p->colaTrenes = this->colaTrenes;
+    p->colaViajes = this->colaViajes;
     p->show();
     this->close();
 }
@@ -42,7 +42,7 @@ void vagregapasajero::on_btnAgregar_clicked()
     vagregaequipaje *v = new vagregaequipaje();
     v->colaEspera = this->colaEspera;
     v->colaTicket = this->colaTicket;
-    v->colaTrenes = this->colaTrenes;
+    v->colaViajes = this->colaViajes;
     v->amo = nuevo;
     this->hide();
     v->exec();
