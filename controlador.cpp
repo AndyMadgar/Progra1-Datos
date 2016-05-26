@@ -9,8 +9,6 @@
 #include "hilo.h"
 #include "viaje.h"
 
-listaPasajero *listPasajeros = new listaPasajero();
-listaViajes *listViajes = new listaViajes();
 
 void Controlador::cargarPasajeros(){
     QFile file("/home/shiki/Documentos/Datos/Estacion_Trenes/Datos/Pasajeros.xlsx");
@@ -91,14 +89,14 @@ void Controlador::cargarViajes(){
 Controlador::Controlador()
 {
     cargarPasajeros();
-    cargarViajes();
-
+    cargarViajes();/*
+    Principal *ventanaPrincipal = new Principal();
     ventanaPrincipal->colaEspera = new listaPasajero();
     ventanaPrincipal->colaTicket = listPasajeros;
     ventanaPrincipal->colaViajes = listViajes;
     ventanaPrincipal->setVisible(true);
-    Hilo *hi1o = new Hilo();
-    hi1o->start();
+    Hilo *hi1o = new Hilo(ventanaPrincipal);
+    hi1o->run();
     ventanaPrincipal->show();
-
+*/
 }

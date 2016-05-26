@@ -17,6 +17,7 @@ class vagregaequipaje : public QDialog
 public:
     explicit vagregaequipaje(QWidget *parent = 0);
     ~vagregaequipaje();
+
     Pasajero *amo;
     listaPasajero *colaEspera = new listaPasajero();
     listaPasajero *colaTicket = new listaPasajero();

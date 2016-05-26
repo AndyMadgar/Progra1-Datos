@@ -3,12 +3,11 @@
 #include "principal.h"
 #include "vagregaequipaje.h"
 #include <QDebug>
+#include "pasajero.h"
+vagregapasajero::vagregapasajero(QWidget *parent):QDialog(parent),ui(new Ui::vagregapasajero){
 
-vagregapasajero::vagregapasajero(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::vagregapasajero)
-{
-    ui->setupUi(this);
+  ui->setupUi(this);
+
 }
 
 vagregapasajero::~vagregapasajero()
@@ -16,8 +15,16 @@ vagregapasajero::~vagregapasajero()
     delete ui;
 }
 
+void vagregapasajero::revisarAmo(){
+    if (this->amo!=NULL){
+        ui->btnAgregarMaleta->setEnabled(true);
+        ui->btnAgregar->setEnabled(false);
+    }
+}
+
 void vagregapasajero::on_btnVolver_clicked()
 {
+    this->colaTicket->Push(this->amo);
     Principal *p = new Principal();
     p->colaEspera = this->colaEspera;
     p->colaTicket = this->colaTicket;
@@ -38,13 +45,18 @@ void vagregapasajero::on_btnAgregar_clicked()
     int estatura = ui->txfEstatura->text().toInt();
 
     Pasajero *nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino);
+    this->amo=nuevo;
+    ui->btnAgregarMaleta->setEnabled(true);
+    ui->btnAgregar->setEnabled(false);
+}
 
+void vagregapasajero::on_btnAgregarMaleta_clicked()
+{
     vagregaequipaje *v = new vagregaequipaje();
     v->colaEspera = this->colaEspera;
     v->colaTicket = this->colaTicket;
     v->colaViajes = this->colaViajes;
-    v->amo = nuevo;
-    this->hide();
-    v->exec();
+    v->amo =this->amo;
     this->close();
+    v->show();
 }
