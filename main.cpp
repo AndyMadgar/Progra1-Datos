@@ -7,9 +7,10 @@
 #include "tren.h"
 #include "equipaje.h"
 #include "hilo.h"
+#include "viaje.h"
 
 listaPasajero *pasajeros = new listaPasajero();
-listaTrenes *listTrenes = new listaTrenes();
+listaViajes *listViajes = new listaViajes();
 
 void cargarPasajeros(){
     QFile file("/home/shiki/Documentos/Datos/Estacion_Trenes/Datos/Pasajeros.xlsx");
@@ -48,35 +49,40 @@ void cargarPasajeros(){
         nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino);
         Equipaje *mal = new Equipaje(pesoMaleta, nuevo, isHand);
         nuevo->equipaje->insertar(mal);
-        pasajeros->insertar(nuevo);
+        pasajeros->Push(nuevo);
     }
     file.flush();
     file.close();
 
 }
 
-void cargarTrenes(){
-    QFile file("/home/shiki/Documentos/Datos/Estacion_Trenes/Datos/Trenes.xlsx");
+void cargarViajes(){
+    QFile file("/home/shiki/Documentos/Datos/Estacion_Trenes/Datos/Viajes.xlsx");
     if(!file.open(QFile::ReadOnly | QFile::Text)){
         qDebug() << "No se pudo cargar el archivo de trenes";
         return;
     }
     Tren *nuevo;
+    Viaje *viajeNuevo;
     QTextStream in(&file);
     QString destino;
     QString capitan;
-    int placa;
+    QString placa;
+    QDateTime inicio;
+    QDateTime final;
     QStringList data;
     while(!in.atEnd()){
         QString line = in.readLine();
         data = line.split(",");
-        destino = "";
         capitan = data.at(0);
-        placa = data.at(1).toInt();
-        incio= data.at(2).toInt();
-        final=data.at(3).toInt();
+        placa = data.at(1);
+        destino = data.at(2);
+        QDateTime actual = QDateTime::currentDateTime();
+        inicio = actual.addSecs(data.at(3).toInt());
+        final = inicio.addSecs(data.at(4).toInt());
         nuevo = new Tren(destino, capitan, placa);
-        listTrenes->insertar(nuevo);
+        viajeNuevo = new Viaje(nuevo, inicio, final);
+        listViajes->Push(viajeNuevo);
     }
     file.flush();
     file.close();
@@ -86,14 +92,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Hilo *h1 = new Hilo();
-    h1->start();
-
     cargarPasajeros();
-    cargarTrenes();
-
-    Principal w;
-    w.show();
+    cargarViajes();
+    Hilo *h1 = new Hilo(pasajeros, listViajes);
+    h1->start();
 
     return a.exec();
 }

@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "pasajero.h"
 #include "tren.h"
+#include "viaje.h"
 
 namespace Ui {
 class vagregapasajero;
@@ -18,7 +19,8 @@ public:
     ~vagregapasajero();
     listaPasajero *colaEspera = new listaPasajero();
     listaPasajero *colaTicket = new listaPasajero();
-    listaTrenes *colaTrenes = new listaTrenes();
+    listaViajes *colaViajes = new listaViajes();
+
 private slots:
     void on_btnVolver_clicked();
 

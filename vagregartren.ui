@@ -6,24 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>368</width>
-    <height>155</height>
+    <width>327</width>
+    <height>245</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>324</width>
-     <height>118</height>
+     <x>0</x>
+     <y>11</y>
+     <width>303</width>
+     <height>217</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1" colspan="2">
+    <item row="0" column="0" colspan="2">
      <widget class="QLabel" name="label">
       <property name="text">
        <string>Agregar Tren</string>
@@ -37,41 +37,47 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
+    <item row="1" column="2">
      <widget class="QLineEdit" name="txfCapitan"/>
     </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="btnAgregar">
-      <property name="text">
-       <string>Agregar Tren</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
+    <item row="2" column="0" colspan="2">
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>Placa:</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
+    <item row="2" column="2">
      <widget class="QLineEdit" name="txfPlaca"/>
     </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="btnVolver">
+    <item row="3" column="0" colspan="2">
+     <widget class="QLabel" name="label_5">
       <property name="text">
-       <string>Volver</string>
+       <string>Segundos para Iniciar:</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="3" column="2">
+     <widget class="QLineEdit" name="txfInicio"/>
+    </item>
+    <item row="4" column="0" colspan="2">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Duracion del viaje:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QLineEdit" name="txfFin"/>
+    </item>
+    <item row="5" column="0" colspan="2">
      <widget class="QLabel" name="label_4">
       <property name="text">
        <string>Destino:</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
+    <item row="5" column="2">
      <widget class="QComboBox" name="cbxDestino">
       <item>
        <property name="text">
@@ -108,6 +114,20 @@
         <string>Limon</string>
        </property>
       </item>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="btnAgregar">
+      <property name="text">
+       <string>Agregar Tren</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1" colspan="2">
+     <widget class="QPushButton" name="btnVolver">
+      <property name="text">
+       <string>Volver</string>
+      </property>
      </widget>
     </item>
    </layout>

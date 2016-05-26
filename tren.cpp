@@ -1,6 +1,6 @@
 #include "tren.h"
 
-Tren::Tren(QString pDestino, QString pCapitan, int pPlaca){
+Tren::Tren(QString pDestino, QString pCapitan, QString pPlaca){
     destino = pDestino;
     capitan = pCapitan;
     placa = pPlaca;

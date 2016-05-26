@@ -13,11 +13,11 @@ Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QStrin
     this->estatura = pEstatura;
     this->destino = pDestino;
     this->equipaje = new listaEquipaje();
-    this->tickets = new listaTickets();
+    this->ticketes = new listaTickets();
     this->siguiente = NULL;
 }
 
-void listaPasajero::insertar(Pasajero *pPasajero){
+void listaPasajero::Push(Pasajero *pPasajero){
     if(listaVacia()){
         primero = pPasajero;
     }
@@ -66,19 +66,14 @@ int listaPasajero::cuentaPos(int id){
     }
 }
 
-void listaPasajero::eliminar(int pos){
-    if(pos == 0){
+void listaPasajero::Pop(){
+    if (listaVacia()){
         return;
     }
     else{
-        Pasajero *tmp = primero;
-        while(tmp != NULL && pos != 1){
-            tmp = tmp->siguiente;
-            pos--;
-        }
-        tmp->siguiente = tmp->siguiente->siguiente;
+        Pasajero *tmp = this->primero;
+        this->primero= tmp->siguiente;
     }
-    return;
 }
 
 void listaPasajero::Mostrar(){
