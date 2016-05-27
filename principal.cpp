@@ -3,8 +3,9 @@
 #include "vagregapasajero.h"
 #include "vagregartren.h"
 #include "vmuestrapasajero.h"
+#include "vmuestraviajes.h"
 #include <QString>
-#include <QDebug>
+#include <QThread>
 
 Principal::Principal(QWidget *parent) :
     QMainWindow(parent),
@@ -26,9 +27,15 @@ void Principal::on_btnAgregaPasajeros_clicked()
     v->colaViajes = this->colaViajes;
 
     v->setVisible(true);
-    this->setVisible(false);
-    v->exec();
+    this->hide();
+    v->show();
+    v->activateWindow();
+    while(v->isActiveWindow()){
+
+    }
+    this->show();
 }
+
 void Principal::on_btnAgregaTren_clicked()
 {
     vagregartren *v = new vagregartren();
@@ -37,21 +44,25 @@ void Principal::on_btnAgregaTren_clicked()
     v->colaViajes = this->colaViajes;
 
     v->setVisible(true);
-    this->setVisible(false);
-    v->exec();
+    this->hide();
+    v->show();
+
+    while(v->isActiveWindow()){
+
+    }
+    this->show();
 }
 
-void Principal::distribuirTickets(){
+void Principal::distribuirTickets(){//W.I.P. - Crear boleteria
     Pasajero *tmp = this->colaTicket->primero;
     while(tmp != NULL){
         this->colaEspera->Push(tmp);
         this->colaTicket->Pop();
-        tmp=tmp->siguiente;
+        tmp = tmp->siguiente;
     }
 }
 
-void Principal::on_btnActualizar_clicked()
-{
+void Principal::actualizar(){
     ui->lstEspera->clear();
     ui->lstTickets->clear();
     ui->lstViajes->clear();
@@ -77,10 +88,6 @@ void Principal::on_btnActualizar_clicked()
         ui->lstEspera->addItem(x);
         tmp2 = tmp2->siguiente;
     }
-
-
-
-
 }
 
 void Principal::on_lstTickets_itemDoubleClicked()
@@ -94,8 +101,13 @@ void Principal::on_lstTickets_itemDoubleClicked()
     v->amo = this->colaTicket->buscar(id);
 
     v->setVisible(true);
-    this->setVisible(false);
-    v->exec();
+    this->hide();
+    v->show();
+
+    while(v->isActiveWindow()){
+
+    }
+    this->show();
 
 }
 
@@ -110,6 +122,29 @@ void Principal::on_lstEspera_itemDoubleClicked()
     v->amo = this->colaEspera->buscar(id);
 
     v->setVisible(true);
-    this->setVisible(false);
-    v->exec();
+    this->hide();
+    v->show();
+    v->actualizar();
+    while(v->isActiveWindow()){
+
+    }
+    this->show();
+}
+
+void Principal::on_lstViajes_itemDoubleClicked()
+{
+    vmuestraviajes *v = new vmuestraviajes();
+    v->colaEspera = this->colaEspera;
+    v->colaTicket = this->colaTicket;
+    v->colaViajes = this->colaViajes;
+
+    QString id = ui->lstViajes->currentItem()->text().split("|").at(1);
+    v->viaje= this->colaViajes->buscar(id);
+    this->hide();
+    v->show();
+    while(v->isActiveWindow()){
+
+
+    }
+    this->show();
 }

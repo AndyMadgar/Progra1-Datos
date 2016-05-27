@@ -15,17 +15,7 @@ vmuestrapasajero::~vmuestrapasajero()
     delete ui;
 }
 
-void vmuestrapasajero::on_btnVolver_clicked()
-{
-    Principal *p = new Principal();
-    p->colaEspera = this->colaEspera;
-    p->colaTicket = this->colaTicket;
-    p->colaViajes = this->colaViajes;
-    p->show();
-    this->close();
-}
-
-void vmuestrapasajero::on_btnActualizar_clicked()
+void vmuestrapasajero::actualizar()
 {
     ui->txfApellido->setText(this->amo->apellidos);
     ui->txfDestino->setText(this->amo->destino);

@@ -1,9 +1,6 @@
 #include "vagregaequipaje.h"
 #include "ui_vagregaequipaje.h"
-#include "vagregapasajero.h"
 #include "equipaje.h"
-#include <QDebug>
-#include "hilo.h"
 
 vagregaequipaje::vagregaequipaje(QWidget *parent) :
     QDialog(parent),
@@ -19,13 +16,6 @@ vagregaequipaje::~vagregaequipaje()
 
 void vagregaequipaje::on_btnVolver_clicked()
 {
-    vagregapasajero *v = new vagregapasajero();
-    v->colaEspera = this->colaEspera;
-    v->colaTicket = this->colaTicket;
-    v->colaViajes = this->colaViajes;
-    v->amo=this->amo;
-    v->revisarAmo();
-    v->show();
     this->close();
 }
 
@@ -36,13 +26,5 @@ void vagregaequipaje::on_btnAgregar_clicked(){
 
     Equipaje *nuevo = new Equipaje(peso, this->amo, isMano);
     this->amo->equipaje->insertar(nuevo);
-
-    vagregapasajero *v = new vagregapasajero();
-    v->colaEspera = this->colaEspera;
-    v->colaTicket = this->colaTicket;
-    v->colaViajes = this->colaViajes;
-    v->amo=this->amo;
-    v->revisarAmo();
-    v->show();
     this->close();
 }

@@ -26,13 +26,15 @@ public slots:
 
     void on_btnAgregaTren_clicked();
 
-    void on_btnActualizar_clicked();
-
     void on_lstTickets_itemDoubleClicked();
 
     void distribuirTickets();
+
+    void actualizar();
 private slots:
     void on_lstEspera_itemDoubleClicked();
+
+    void on_lstViajes_itemDoubleClicked();
 
 private:
     Ui::Principal *ui;

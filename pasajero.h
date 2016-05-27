@@ -23,15 +23,11 @@ public:
 class listaPasajero{
 public:
     Pasajero *primero;
-
     listaPasajero(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
     void Push(Pasajero *);
-    Pasajero *buscar(int);
-    int cuentaPos(int);
     void Pop();
-    void Mostrar();
-
+    Pasajero *buscar(int);
 };
 
 #endif // PASAJERO_H

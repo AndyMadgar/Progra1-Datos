@@ -21,11 +21,7 @@ public:
     listaPasajero *colaTicket = new listaPasajero();
     listaViajes *colaViajes = new listaViajes();
     Pasajero *amo;
-
-private slots:
-    void on_btnVolver_clicked();
-
-    void on_btnActualizar_clicked();
+    void actualizar();
 
 private:
     Ui::vmuestrapasajero *ui;

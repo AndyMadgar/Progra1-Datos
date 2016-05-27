@@ -22,7 +22,7 @@ public:
     listaViajes(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
     void Push(Viaje *nuevo);
-    Viaje *buscar();
+    Viaje *buscar(QString);
     void Pop();
     void ajustarTiempos();
 

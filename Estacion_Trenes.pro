@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     hilo.cpp \
     ticket.cpp \
     viaje.cpp \
-    controlador.cpp
+    dios.cpp \
+    vmuestraviajes.cpp
 
 HEADERS  += principal.h \
     pasajero.h \
@@ -37,13 +38,16 @@ HEADERS  += principal.h \
     hilo.h \
     ticket.h \
     viaje.h \
-    controlador.h
+    dios.h \
+    vmuestraviajes.h
 
 FORMS    += principal.ui \
     vagregapasajero.ui \
     vagregaequipaje.ui \
     vagregartren.ui \
-    vmuestrapasajero.ui
+    vmuestrapasajero.ui \
+    dios.ui \
+    vmuestraviajes.ui
 
 RESOURCES += \
     Imagenes.qrc

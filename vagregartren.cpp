@@ -1,6 +1,5 @@
 #include "vagregartren.h"
 #include "ui_vagregartren.h"
-#include "principal.h"
 #include "viaje.h"
 
 vagregartren::vagregartren(QWidget *parent) :
@@ -17,14 +16,7 @@ vagregartren::~vagregartren()
 
 void vagregartren::on_btnVolver_clicked()
 {
-    Principal *p = new Principal();
-    p->colaEspera = this->colaEspera;
-    p->colaTicket = this->colaTicket;
-    p->colaViajes = this->colaViajes;
-
-    p->setVisible(true);
     this->close();
-    p->show();
 }
 
 void vagregartren::on_btnAgregar_clicked()
@@ -40,12 +32,5 @@ void vagregartren::on_btnAgregar_clicked()
     Viaje *viajeNuevo = new Viaje(nuevo, inicio, final);
     this->colaViajes->Push(viajeNuevo);
 
-    Principal *p = new Principal();
-    p->colaEspera = this->colaEspera;
-    p->colaTicket = this->colaTicket;
-    p->colaViajes = this->colaViajes;
-
-    p->setVisible(true);
     this->close();
-    p->show();
 }

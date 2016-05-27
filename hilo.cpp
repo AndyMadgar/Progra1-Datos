@@ -3,20 +3,20 @@
 #include <QString>
 #include "principal.h"
 
-Hilo::Hilo(listaPasajero *pasajeros, listaViajes *viajes){
-    this->ventanaPrincipal->colaEspera = new listaPasajero();
-    this->ventanaPrincipal->colaTicket = pasajeros;
-    this->ventanaPrincipal->colaViajes = viajes;
-}
+Hilo::Hilo(){}
 
 void Hilo::run(){
     int i = 0;
-    this->ventanaPrincipal->setVisible(true);
-    this->ventanaPrincipal->show();
+    this->dios->setVisible(false);
+    //this->dios->show();
     while(true){
         qDebug() << "Hola Mundo: " << i;
         i++;
-        this->ventanaPrincipal->on_btnActualizar_clicked();
+        //aqui deberia actualizar.
+        this->dios->ventanaPrincipal->actualizar();
+        if(this->dios->ventanaPrincipal->isActiveWindow()){
+            qDebug() << "jajajajaja";
+        }
         this->sleep(1);
     }
 }

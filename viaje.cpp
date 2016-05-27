@@ -19,12 +19,31 @@ void listaViajes::Push(Viaje *nuevo){
         tmp->siguiente = nuevo;
     }
 }
+
 void  listaViajes::Pop(){
     if (listaVacia()){
     }
     else{
         Viaje *tmp = this->primero;
         this->primero= tmp->siguiente;
+    }
+}
+
+Viaje *listaViajes::buscar(QString id){
+    if(listaVacia()){
+        return NULL;
+    }
+    else{
+        Viaje *tmp = primero;
+        while(tmp != NULL){
+            if(tmp->transporte->placa == id){
+                return tmp;
+            }
+            else{
+                tmp = tmp->siguiente;
+            }
+        }
+        return NULL;
     }
 }
 

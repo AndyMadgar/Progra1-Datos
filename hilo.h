@@ -2,11 +2,12 @@
 #define HILO_H
 #include <QThread>
 #include "principal.h"
+#include "dios.h"
 
 class Hilo : public QThread{
 public:
-    Principal *ventanaPrincipal = new Principal();
-    Hilo(listaPasajero*, listaViajes*);
+    Dios *dios = new Dios();
+    Hilo();
     void run();
 };
 

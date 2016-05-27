@@ -1,8 +1,6 @@
 #include "vagregapasajero.h"
 #include "ui_vagregapasajero.h"
-#include "principal.h"
 #include "vagregaequipaje.h"
-#include <QDebug>
 #include "pasajero.h"
 vagregapasajero::vagregapasajero(QWidget *parent):QDialog(parent),ui(new Ui::vagregapasajero){
 
@@ -15,21 +13,9 @@ vagregapasajero::~vagregapasajero()
     delete ui;
 }
 
-void vagregapasajero::revisarAmo(){
-    if (this->amo!=NULL){
-        ui->btnAgregarMaleta->setEnabled(true);
-        ui->btnAgregar->setEnabled(false);
-    }
-}
-
 void vagregapasajero::on_btnVolver_clicked()
 {
     this->colaTicket->Push(this->amo);
-    Principal *p = new Principal();
-    p->colaEspera = this->colaEspera;
-    p->colaTicket = this->colaTicket;
-    p->colaViajes = this->colaViajes;
-    p->show();
     this->close();
 }
 
@@ -43,7 +29,7 @@ void vagregapasajero::on_btnAgregar_clicked()
     int telf = ui->txfTelefono->text().toInt();
     int peso = ui->txfPeso->text().toInt();
     int estatura = ui->txfEstatura->text().toInt();
-
+    //Agarrar y crear ticket - W.I.P
     Pasajero *nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino);
     this->amo=nuevo;
     ui->btnAgregarMaleta->setEnabled(true);
@@ -56,7 +42,13 @@ void vagregapasajero::on_btnAgregarMaleta_clicked()
     v->colaEspera = this->colaEspera;
     v->colaTicket = this->colaTicket;
     v->colaViajes = this->colaViajes;
-    v->amo =this->amo;
-    this->close();
+    v->amo = this->amo;
+    this->hide();
     v->show();
+
+    while(v->isActiveWindow()){
+
+    }
+    //Desactivar todos los campos editables y ponerles la informacion del pasajero - W.I.P
+    this->show();
 }

@@ -30,6 +30,16 @@ void listaPasajero::Push(Pasajero *pPasajero){
     }
 }
 
+void listaPasajero::Pop(){
+    if (listaVacia()){
+        return;
+    }
+    else{
+        Pasajero *tmp = this->primero;
+        this->primero= tmp->siguiente;
+    }
+}
+
 Pasajero *listaPasajero::buscar(int id){
     if(listaVacia()){
         return NULL;
@@ -45,55 +55,5 @@ Pasajero *listaPasajero::buscar(int id){
             }
         }
         return NULL;
-    }
-}
-
-int listaPasajero::cuentaPos(int id){
-    int pos = 0;
-    if(listaVacia()){
-        return pos;
-    }
-    else{
-        Pasajero *tmp = primero;
-        while(tmp != NULL){
-            if(tmp->ID == id){
-                return pos;
-            }
-            pos++;
-            tmp = tmp->siguiente;
-        }
-        return 0;
-    }
-}
-
-void listaPasajero::Pop(){
-    if (listaVacia()){
-        return;
-    }
-    else{
-        Pasajero *tmp = this->primero;
-        this->primero= tmp->siguiente;
-    }
-}
-
-void listaPasajero::Mostrar(){
-    if(listaVacia()){
-        qDebug() << "No hay elementos en la lista";
-        return;
-    }
-    else{
-        Pasajero *tmp = primero;
-        while(tmp != NULL){
-            qDebug() << "Nombre: " << tmp->nombre;
-            qDebug() << "Apellido: " << tmp->apellidos;
-            qDebug() << "ID: " << tmp->ID;
-            qDebug() << "Telefono: " << tmp->telefono;
-            qDebug() << "Nacionalidad: " << tmp->nacionalidad;
-            qDebug() << "Peso: " << tmp->peso;
-            qDebug() << "Estatura: " << tmp->estatura;
-            qDebug() << "Destino: " << tmp->destino;
-            qDebug() << "\n";
-            tmp = tmp->siguiente;
-        }
     }
 }
