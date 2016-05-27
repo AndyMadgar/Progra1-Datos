@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "pasajero.h"
 #include "tren.h"
+#include "viaje.h"
 
 namespace Ui {
 class vagregapasajero;
@@ -16,13 +17,18 @@ class vagregapasajero : public QDialog
 public:
     explicit vagregapasajero(QWidget *parent = 0);
     ~vagregapasajero();
+    Pasajero *amo = NULL;
+    void revisarAmo();
     listaPasajero *colaEspera = new listaPasajero();
     listaPasajero *colaTicket = new listaPasajero();
-    listaTrenes *colaTrenes = new listaTrenes();
+    listaViajes *colaViajes = new listaViajes();
+
 private slots:
     void on_btnVolver_clicked();
 
     void on_btnAgregar_clicked();
+
+    void on_btnAgregarMaleta_clicked();
 
 private:
     Ui::vagregapasajero *ui;

@@ -21,7 +21,10 @@ SOURCES += main.cpp\
     vagregaequipaje.cpp \
     vagregartren.cpp \
     vmuestrapasajero.cpp \
-    hilo.cpp
+    hilo.cpp \
+    ticket.cpp \
+    viaje.cpp \
+    vmuestraviajes.cpp
 
 HEADERS  += principal.h \
     pasajero.h \
@@ -31,13 +34,21 @@ HEADERS  += principal.h \
     vagregaequipaje.h \
     vagregartren.h \
     vmuestrapasajero.h \
-    hilo.h
+    hilo.h \
+    ticket.h \
+    viaje.h \
+    vmuestraviajes.h
 
 FORMS    += principal.ui \
     vagregapasajero.ui \
     vagregaequipaje.ui \
     vagregartren.ui \
-    vmuestrapasajero.ui
+    vmuestrapasajero.ui \
+    vmuestraviajes.ui
 
 RESOURCES += \
-    Imagenes.qrc
+    imagenes.qrc
+
+OTHER_FILES += \
+    Datos/Pasajeros.xlsx \
+    Datos/Viajes.xlsx

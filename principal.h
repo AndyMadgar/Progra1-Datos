@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "pasajero.h"
 #include "tren.h"
+#include "viaje.h"
 
 namespace Ui {
 class Principal;
@@ -18,16 +19,28 @@ public:
     ~Principal();
     listaPasajero *colaEspera = new listaPasajero();
     listaPasajero *colaTicket = new listaPasajero();
-    listaTrenes *colaTrenes = new listaTrenes();
+    listaViajes *colaViajes = new listaViajes();
 
-private slots:
+public slots:
     void on_btnAgregaPasajeros_clicked();
 
     void on_btnAgregaTren_clicked();
 
-    void on_btnActualizar_clicked();
-
     void on_lstTickets_itemDoubleClicked();
+
+    void distribuirTickets();
+
+    void actualizar();
+
+    listaViajes *cargarViajes();
+
+    listaPasajero *cargarPasajeros();
+
+private slots:
+    void on_lstEspera_itemDoubleClicked();
+
+    void on_lstViajes_itemDoubleClicked();
+
 
 private:
     Ui::Principal *ui;

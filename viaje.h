@@ -21,9 +21,9 @@ public:
     class Viaje *primero;
     listaViajes(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
-    void Insertar(Viaje *nuevo);
-    Viaje *buscar();
-    //void eliminar();
+    void Push(Viaje *nuevo);
+    Viaje *buscar(QString);
+    void Pop();
     void ajustarTiempos();
 
 };
