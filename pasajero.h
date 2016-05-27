@@ -1,6 +1,7 @@
 #ifndef PASAJERO_H
 #define PASAJERO_H
 #include <QString>
+#include "equipaje.h"
 #include "ticket.h"
 
 class Pasajero{
@@ -13,11 +14,11 @@ public:
     int telefono;
     int peso;
     int estatura;
+    int cantTickets;
     class listaEquipaje *equipaje;
-    class listaTickets *ticketes;
+    class listaTickets *ticketsComprados;
     class Pasajero *siguiente;
-
-    Pasajero(QString, QString, int, int, QString, int, int, QString);
+    Pasajero(QString, QString, int, int, QString, int, int, QString,int);
 };
 
 class listaPasajero{

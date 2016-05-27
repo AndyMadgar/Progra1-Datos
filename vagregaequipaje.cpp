@@ -2,21 +2,12 @@
 #include "ui_vagregaequipaje.h"
 #include "equipaje.h"
 
-vagregaequipaje::vagregaequipaje(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::vagregaequipaje)
-{
+vagregaequipaje::vagregaequipaje(QWidget *parent):QDialog(parent),ui(new Ui::vagregaequipaje){
     ui->setupUi(this);
 }
 
-vagregaequipaje::~vagregaequipaje()
-{
+vagregaequipaje::~vagregaequipaje(){
     delete ui;
-}
-
-void vagregaequipaje::on_btnVolver_clicked()
-{
-    this->close();
 }
 
 void vagregaequipaje::on_btnAgregar_clicked(){

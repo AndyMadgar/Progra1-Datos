@@ -2,8 +2,8 @@
 #define TICKET_H
 #include <QString>
 #include "tren.h"
-class Ticket
-{
+
+class Ticket{
 public:
     int asiento;
     class Tren *transporte;
@@ -11,6 +11,7 @@ public:
     class Ticket *siguiente;
     Ticket(int, Tren*, QString);
 };
+
 class listaTickets{
 public:
     Ticket *primero;
@@ -18,4 +19,5 @@ public:
     bool listaVacia(){return primero == NULL;}
     void insertar(Ticket *);
 };
+
 #endif // TICKET_H

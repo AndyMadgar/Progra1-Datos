@@ -11,20 +11,11 @@ public:
     QString destino;
     QString capitan;
     QString placa;
-    int pesoBodega = 500;
-    int pesoPasajero = 300;
+    int pesoBodega;
+    int pesoPasajero;
     class Tren *siguiente;
     Tren(QString, QString, QString);
     bool calcEspacio(class Pasajero*);
-};
-
-class listaTrenes{
-public:
-    class Tren *primero;
-    listaTrenes(){primero = NULL;}
-    bool listaVacia(){return primero == NULL;}
-    void insertar(Tren *);
-    Tren *buscar(QString);
 };
 
 #endif // TREN_H

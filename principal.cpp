@@ -1,157 +1,76 @@
 #include "principal.h"
 #include "ui_principal.h"
-#include "vagregapasajero.h"
-#include "vagregartren.h"
-#include "vmuestrapasajero.h"
-#include "vmuestraviajes.h"
 #include <QString>
 #include <QTextStream>
 #include <QFile>
 #include <QDebug>
+#include <QThread>
 
-Principal::Principal(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::Principal)
-{
+Principal::Principal(QWidget *parent):QMainWindow(parent),ui(new Ui::Principal){
     ui->setupUi(this);
-
     this->colaEspera = new listaPasajero();
     this->colaTicket = this->cargarPasajeros();
     this->colaViajes = this->cargarViajes();
 }
 
-Principal::~Principal()
-{
+Principal::~Principal(){
     delete ui;
 }
 
-void Principal::on_btnAgregaPasajeros_clicked()
-{
+void Principal::on_btnAgregaPasajeros_clicked(){
     vagregapasajero *v = new vagregapasajero();
-    v->colaEspera = this->colaEspera;
     v->colaTicket = this->colaTicket;
-    v->colaViajes = this->colaViajes;
-
-    v->setVisible(true);
     this->hide();
     v->show();
-    v->activateWindow();
-    while(v->isActiveWindow()){
-
-    }
+    //HILO O ALGO ASI QUE NO HAGA NADA MIENTRAS LA VENTANA ESTA ABIERTA
     this->show();
 }
 
-void Principal::on_btnAgregaTren_clicked()
-{
+void Principal::on_btnAgregaTren_clicked(){
     vagregartren *v = new vagregartren();
-    v->colaEspera = this->colaEspera;
-    v->colaTicket = this->colaTicket;
     v->colaViajes = this->colaViajes;
-
-    v->setVisible(true);
     this->hide();
     v->show();
-
-    while(v->isActiveWindow()){
-
-    }
+    //HILO O ALGO ASI QUE NO HAGA NADA MIENTRAS LA VENTANA ESTA ABIERTA
     this->show();
 }
 
-void Principal::distribuirTickets(){//W.I.P. - Crear boleteria
-    Pasajero *tmp = this->colaTicket->primero;
+void Principal::distribuirTickets(){
+
+    listaPasajero *colaRecompra = new listaPasajero();
+    Pasajero *pasajeroAtendido = this->colaTicket->primero;
+    while(pasajeroAtendido != NULL){
+    qDebug() << "While 1";
+    //SEGMENTATION FAULT si no hay tren en la cola con el destino que se ocupa
+    Tren *trenAsignado = this->colaViajes->buscarDestino(pasajeroAtendido->destino)->transporte;
+    if(trenAsignado != NULL){ //busca si ya hay un viaje que tenga un tren con su destino
+            qDebug() << "Condicion 1";
+            int cant = pasajeroAtendido->cantTickets;
+            while(cant != 0){     //compra la cantidad de tiquetes que quiere
+                qDebug() << "While 2";
+                Ticket *ticketComprado = new Ticket(cant,trenAsignado,pasajeroAtendido->destino);
+                pasajeroAtendido->ticketsComprados->insertar(ticketComprado);
+                cant = cant-1;
+            }
+            this->colaEspera->Push(pasajeroAtendido);
+            this->colaTicket->Pop();
+            QThread::sleep(1); //atiende a una persona cada segundo
+            pasajeroAtendido = pasajeroAtendido->siguiente;
+        }
+        else{                  //si no hay lo saca de la cola y lo vuelve a meter al final hasta que haya un tren
+            qDebug() << "Condicion 2";
+            colaRecompra->Push(pasajeroAtendido);
+            this->colaTicket->Pop();
+            //QThread::sleep(1);
+            pasajeroAtendido = pasajeroAtendido->siguiente; //atiende al siguiente
+        }
+    }//termina de recorrer la cola de compradores
+    Pasajero *tmp = colaRecompra->primero;
     while(tmp != NULL){
-        this->colaEspera->Push(tmp);
-        this->colaTicket->Pop();
-        tmp = tmp->siguiente;
-    }
-}
-
-void Principal::actualizar(){
-    ui->lstEspera->clear();
-    ui->lstTickets->clear();
-    ui->lstViajes->clear();
-    Pasajero *tmp1 = this->colaTicket->primero;
-    while(tmp1 != NULL){
-        QString x = tmp1->nombre + "|" + QString::number(tmp1->ID);
-        ui->lstTickets->addItem(x);
-        tmp1 = tmp1->siguiente;
-    }
-
-    Viaje *tmp = this->colaViajes->primero;
-    while(tmp != NULL){
-        QString x = tmp->transporte->destino + "|" + tmp->transporte->placa;
-        ui->lstViajes->addItem(x);
-        tmp = tmp->siguiente;
-    }
-
-    this->distribuirTickets();
-
-    Pasajero *tmp2 = this->colaEspera->primero;
-    while(tmp2 != NULL){
-        QString x = tmp2->nombre + "|" + QString::number(tmp2->ID);
-        ui->lstEspera->addItem(x);
-        tmp2 = tmp2->siguiente;
-    }
-}
-
-void Principal::on_lstTickets_itemDoubleClicked()
-{
-    vmuestrapasajero *v = new vmuestrapasajero();
-    v->colaEspera = this->colaEspera;
-    v->colaTicket = this->colaTicket;
-    v->colaViajes = this->colaViajes;
-
-    int id = ui->lstTickets->currentItem()->text().split("|").at(1).toInt();
-    v->amo = this->colaTicket->buscar(id);
-
-    v->setVisible(true);
-    this->hide();
-    v->show();
-
-    while(v->isActiveWindow()){
-
-    }
-    this->show();
-
-}
-
-void Principal::on_lstEspera_itemDoubleClicked()
-{
-    vmuestrapasajero *v = new vmuestrapasajero();
-    v->colaEspera = this->colaEspera;
-    v->colaTicket = this->colaTicket;
-    v->colaViajes = this->colaViajes;
-
-    int id = ui->lstEspera->currentItem()->text().split("|").at(1).toInt();
-    v->amo = this->colaEspera->buscar(id);
-
-    v->setVisible(true);
-    this->hide();
-    v->show();
-    v->actualizar();
-    while(v->isActiveWindow()){
-
-    }
-    this->show();
-}
-
-void Principal::on_lstViajes_itemDoubleClicked()
-{
-    vmuestraviajes *v = new vmuestraviajes();
-
-    QString id = ui->lstViajes->currentItem()->text().split("|").at(1);
-    v->viaje= this->colaViajes->buscar(id);
-
-    this->hide();
-    v->show();
-    v->actualizar();
-    while(v->isActiveWindow()){
-
-
-    }
-    this->show();
+        colaTicket->Push(tmp);
+        colaRecompra->Pop();
+    }//pone los que no pudieron conseguir tren en la cola de boleteria
+    qDebug() << "Jajajajajaja..";
 }
 
 listaPasajero* Principal::cargarPasajeros(){
@@ -188,7 +107,7 @@ listaPasajero* Principal::cargarPasajeros(){
         pesoMaleta = data.at(8).toInt();
         isHand = data.at(9).toInt() == 1; // 1=true 0=false
 
-        nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino);
+        nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino,1);
         Equipaje *mal = new Equipaje(pesoMaleta, nuevo, isHand);
         nuevo->equipaje->insertar(mal);
         lista->Push(nuevo);
@@ -233,3 +152,63 @@ listaViajes *Principal::cargarViajes(){
     return lista;
 }
 
+void Principal::actualizar(){
+    ui->lstEspera->clear();
+    ui->lstTickets->clear();
+    ui->lstViajes->clear();
+    Pasajero *tmp1 = this->colaTicket->primero;
+    ui->lstTickets->addItem("Nombre|ID");
+    while(tmp1 != NULL){
+        QString x = tmp1->nombre + "|" + QString::number(tmp1->ID);
+        ui->lstTickets->addItem(x);
+        tmp1 = tmp1->siguiente;
+    }
+    Viaje *tmp = this->colaViajes->primero;
+    ui->lstViajes->addItem("Destino|Placa");
+    while(tmp != NULL){
+        QString x = tmp->transporte->destino + "|" + tmp->transporte->placa;
+        ui->lstViajes->addItem(x);
+        tmp = tmp->siguiente;
+    }  
+    this->distribuirTickets();//Boleteria
+    Pasajero *tmp2 = this->colaEspera->primero;
+    ui->lstEspera->addItem("Nombre|ID");
+    while(tmp2 != NULL){
+        QString x = tmp2->nombre + "|" + QString::number(tmp2->ID);
+        ui->lstEspera->addItem(x);
+        tmp2 = tmp2->siguiente;
+    }
+}
+
+void Principal::on_lstTickets_itemDoubleClicked(){
+    vmuestrapasajero *v = new vmuestrapasajero();
+    int id = ui->lstTickets->currentItem()->text().split("|").at(1).toInt();
+    v->amo = this->colaTicket->buscar(id);
+    this->hide();
+    v->show();
+    v->actualizar();
+    //HILO O ALGO ASI QUE NO HAGA NADA MIENTRAS LA VENTANA ESTA ABIERTA
+    this->show();
+}
+
+void Principal::on_lstEspera_itemDoubleClicked(){
+    vmuestrapasajero *v = new vmuestrapasajero();
+    int id = ui->lstEspera->currentItem()->text().split("|").at(1).toInt();
+    v->amo = this->colaEspera->buscar(id);
+    this->hide();
+    v->show();
+    v->actualizar();
+    //HILO O ALGO ASI QUE NO HAGA NADA MIENTRAS LA VENTANA ESTA ABIERTA
+    this->show();
+}
+
+void Principal::on_lstViajes_itemDoubleClicked(){
+    vmuestraviajes *v = new vmuestraviajes();
+    QString id = ui->lstViajes->currentItem()->text().split("|").at(1);
+    v->viaje= this->colaViajes->buscar(id);
+    this->hide();
+    v->show();
+    v->actualizar();
+    //HILO O ALGO ASI QUE NO HAGA NADA MIENTRAS LA VENTANA ESTA ABIERTA
+    this->show();
+}

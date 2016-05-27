@@ -4,15 +4,16 @@ Ticket::Ticket(int pAsiento, Tren *pTransporte, QString pDestino){
     this->asiento = pAsiento;
     this->transporte = pTransporte;
     this->destino = pDestino;
+    this->siguiente=NULL;
 }
 
 void listaTickets::insertar(Ticket *ticket){
     if(listaVacia()){
-        primero = ticket;
+        this->primero = ticket;
         return;
     }
     else{
-        Ticket *tmp = primero;
+        Ticket *tmp = this->primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }

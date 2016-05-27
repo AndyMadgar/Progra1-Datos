@@ -3,7 +3,7 @@
 #include "ticket.h"
 #include <QDebug>
 
-Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QString pNacionalidad, int pPeso, int pEstatura, QString pDestino){
+Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QString pNacionalidad, int pPeso, int pEstatura, QString pDestino,int pCant){
     this->nombre = pNombre;
     this->apellidos = pApellido;
     this->ID = pID;
@@ -12,17 +12,18 @@ Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QStrin
     this->peso = pPeso;
     this->estatura = pEstatura;
     this->destino = pDestino;
-    this->equipaje = new listaEquipaje();
-    this->ticketes = new listaTickets();
+    this->cantTickets = pCant;
     this->siguiente = NULL;
+    this->ticketsComprados = new listaTickets();
+    this->equipaje = new listaEquipaje();
 }
 
 void listaPasajero::Push(Pasajero *pPasajero){
     if(listaVacia()){
-        primero = pPasajero;
+        this->primero = pPasajero;
     }
     else{
-        Pasajero *tmp = primero;
+        Pasajero *tmp = this->primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }
@@ -32,7 +33,6 @@ void listaPasajero::Push(Pasajero *pPasajero){
 
 void listaPasajero::Pop(){
     if (listaVacia()){
-        return;
     }
     else{
         Pasajero *tmp = this->primero;

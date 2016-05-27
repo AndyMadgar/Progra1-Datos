@@ -11,10 +11,9 @@ public:
     int transcurrido;
     int restante;
     class Viaje *siguiente;
+    Viaje();
     Viaje(Tren*, QDateTime, QDateTime);
-
 };
-
 
 class listaViajes{
 public:
@@ -22,10 +21,10 @@ public:
     listaViajes(){primero = NULL;}
     bool listaVacia(){return primero == NULL;}
     void Push(Viaje *nuevo);
-    Viaje *buscar(QString);
     void Pop();
+    Viaje *buscar(QString);
+    Viaje *buscarDestino(QString);
     void ajustarTiempos();
-
 };
 
 #endif // VIAJE_H

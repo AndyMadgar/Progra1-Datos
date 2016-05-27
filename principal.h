@@ -1,17 +1,20 @@
 #ifndef PRINCIPAL_H
 #define PRINCIPAL_H
-
 #include <QMainWindow>
 #include "pasajero.h"
 #include "tren.h"
 #include "viaje.h"
+#include "ticket.h"
+#include "vagregapasajero.h"
+#include "vagregartren.h"
+#include "vmuestrapasajero.h"
+#include "vmuestraviajes.h"
 
 namespace Ui {
 class Principal;
 }
 
-class Principal : public QMainWindow
-{
+class Principal : public QMainWindow{
     Q_OBJECT
 
 public:

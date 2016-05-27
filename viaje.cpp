@@ -1,18 +1,27 @@
 #include "viaje.h"
+#include <QDebug>
 
 Viaje::Viaje(Tren *pTransporte, QDateTime pInicio, QDateTime pFinal){
     this->transporte = pTransporte;
     this->inicio = pInicio;
     this->final = pFinal;
     this->siguiente = NULL;
+    //calcular restante y transcurrido
+}
+
+Viaje::Viaje(){
+    this->transporte = NULL;
+    this->inicio = QDateTime::currentDateTime();
+    this->final = QDateTime::currentDateTime();
+    this->siguiente = NULL;
 }
 
 void listaViajes::Push(Viaje *nuevo){
     if(listaVacia()){
-        primero = nuevo;
+        this->primero = nuevo;
     }
     else{
-        Viaje *tmp = primero;
+        Viaje *tmp = this->primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }
@@ -34,7 +43,7 @@ Viaje *listaViajes::buscar(QString id){
         return NULL;
     }
     else{
-        Viaje *tmp = primero;
+        Viaje *tmp = this->primero;
         while(tmp != NULL){
             if(tmp->transporte->placa == id){
                 return tmp;
@@ -47,7 +56,33 @@ Viaje *listaViajes::buscar(QString id){
     }
 }
 
-void listaViajes::ajustarTiempos(){
+Viaje *listaViajes::buscarDestino(QString Destino){
+    qDebug() << "Entro a buscar destino";
+    if(listaVacia()){
+        qDebug() << "Lista Vacia";
+        return NULL;
+    }
+    else{
+        qDebug() << "Lista No Vacia";
+        Viaje *tmp = this->primero;
+        qDebug() << "Asigna el primero";
+        while(tmp != NULL){
+            qDebug() << "While 1";
+            if(tmp->transporte->destino == Destino){
+                qDebug() << "Encontro un viaje";
+                return tmp;
+            }
+            else{
+                tmp = tmp->siguiente;
+            }
+        }
+        qDebug() << "No encontro nada";
+        Viaje *x = new Viaje();
+        return x;
+    }
+}
+
+void listaViajes::ajustarTiempos(){//WIP
     QDateTime actual = QDateTime::currentDateTime();
     Viaje *tmp = this->primero;
     if (tmp->final >= actual){
