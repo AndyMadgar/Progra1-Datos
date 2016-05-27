@@ -40,37 +40,74 @@ void Principal::distribuirTickets(){
     listaPasajero *colaRecompra = new listaPasajero();
     Pasajero *pasajeroAtendido = this->colaTicket->primero;
     while(pasajeroAtendido != NULL){
-    qDebug() << "While 1";
-    //SEGMENTATION FAULT si no hay tren en la cola con el destino que se ocupa
     Tren *trenAsignado = this->colaViajes->buscarDestino(pasajeroAtendido->destino)->transporte;
-    if(trenAsignado != NULL){ //busca si ya hay un viaje que tenga un tren con su destino
-            qDebug() << "Condicion 1";
+    if(trenAsignado != NULL){    //busca si ya hay un viaje que tenga un tren con su destino
             int cant = pasajeroAtendido->cantTickets;
             while(cant != 0){     //compra la cantidad de tiquetes que quiere
-                qDebug() << "While 2";
                 Ticket *ticketComprado = new Ticket(cant,trenAsignado,pasajeroAtendido->destino);
                 pasajeroAtendido->ticketsComprados->insertar(ticketComprado);
                 cant = cant-1;
             }
             this->colaEspera->Push(pasajeroAtendido);
             this->colaTicket->Pop();
-            QThread::sleep(1); //atiende a una persona cada segundo
+            QThread::msleep(500); //atiende a una persona cada medio segundo
             pasajeroAtendido = pasajeroAtendido->siguiente;
-        }
-        else{                  //si no hay lo saca de la cola y lo vuelve a meter al final hasta que haya un tren
-            qDebug() << "Condicion 2";
+     }
+    else{//si no hay lo saca de la cola y lo vuelve a meter al final hasta que haya un tren
+
             colaRecompra->Push(pasajeroAtendido);
             this->colaTicket->Pop();
-            //QThread::sleep(1);
+            QThread::msleep(500);
             pasajeroAtendido = pasajeroAtendido->siguiente; //atiende al siguiente
+            if (pasajeroAtendido==NULL){
+                break;
+            }
         }
-    }//termina de recorrer la cola de compradores
+    }    //termina de recorrer la cola de pasajeros si tickets
+
     Pasajero *tmp = colaRecompra->primero;
     while(tmp != NULL){
-        colaTicket->Push(tmp);
         colaRecompra->Pop();
+        colaTicket->Push(tmp);
+        tmp = tmp->siguiente;
     }//pone los que no pudieron conseguir tren en la cola de boleteria
-    qDebug() << "Jajajajajaja..";
+    qDebug() << "refrescó la boletería";
+}
+
+void Principal::abordarLosTrenes(){
+
+}
+void Principal::EliminarViaje(Viaje *viaje){
+    Viaje *tmp = this->colaViajes->primero;
+    Viaje *var1 = this->colaViajes->primero;
+    if (viaje==tmp){
+        tmp->siguiente=tmp->siguiente;
+    }
+    while(tmp!=NULL){
+        tmp=tmp->siguiente;
+    }
+    if (viaje==tmp){
+        tmp=NULL;
+    }
+    else{
+        while(var1->siguiente!=viaje){
+            var1=var1->siguiente;
+        }
+        var1->siguiente=viaje->siguiente;
+    }
+}
+
+void Principal::RevisarFin(){
+    QDateTime actual = QDateTime::currentDateTime();
+    Viaje *tmp = this->colaViajes->primero;
+    while(tmp!=NULL){
+        if(tmp->final.operator >=(actual)){
+            EliminarViaje(tmp);
+        }
+        else{
+            tmp=tmp->siguiente;
+        }
+    }
 }
 
 listaPasajero* Principal::cargarPasajeros(){

@@ -24,7 +24,7 @@ public:
     void Pop();
     Viaje *buscar(QString);
     Viaje *buscarDestino(QString);
-    void ajustarTiempos();
+
 };
 
 #endif // VIAJE_H

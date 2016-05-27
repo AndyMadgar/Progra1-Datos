@@ -20,6 +20,7 @@ Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QStrin
 
 void listaPasajero::Push(Pasajero *pPasajero){
     if(listaVacia()){
+
         this->primero = pPasajero;
     }
     else{
@@ -36,7 +37,7 @@ void listaPasajero::Pop(){
     }
     else{
         Pasajero *tmp = this->primero;
-        this->primero= tmp->siguiente;
+        this->primero = tmp->siguiente;
     }
 }
 

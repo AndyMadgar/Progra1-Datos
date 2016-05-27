@@ -33,6 +33,12 @@ public slots:
 
     void distribuirTickets();
 
+    void abordarLosTrenes();
+
+    void EliminarViaje(Viaje*);
+
+    void RevisarFin();
+
     void actualizar();
 
     listaViajes *cargarViajes();
