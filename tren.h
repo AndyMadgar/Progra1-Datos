@@ -15,7 +15,7 @@ public:
     int pesoPasajero;
     class Tren *siguiente;
     Tren(QString, QString, QString);
-    bool calcEspacio(class Pasajero*);
+
 };
 
 #endif // TREN_H

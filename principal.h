@@ -45,6 +45,8 @@ public slots:
 
     listaPasajero *cargarPasajeros();
 
+    bool calcEspacio(class Pasajero*, Tren *tren);
+
 private slots:
     void on_lstEspera_itemDoubleClicked();
 

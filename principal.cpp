@@ -50,14 +50,14 @@ void Principal::distribuirTickets(){
             }
             this->colaEspera->Push(pasajeroAtendido);
             this->colaTicket->Pop();
-            QThread::msleep(500); //atiende a una persona cada medio segundo
+            QThread::sleep(1); //atiende a una persona cada medio segundo
             pasajeroAtendido = pasajeroAtendido->siguiente;
      }
     else{//si no hay lo saca de la cola y lo vuelve a meter al final hasta que haya un tren
 
             colaRecompra->Push(pasajeroAtendido);
             this->colaTicket->Pop();
-            QThread::msleep(500);
+            QThread::sleep(1);
             pasajeroAtendido = pasajeroAtendido->siguiente; //atiende al siguiente
             if (pasajeroAtendido==NULL){
                 break;
@@ -75,37 +75,92 @@ void Principal::distribuirTickets(){
 }
 
 void Principal::abordarLosTrenes(){
-
+    Pasajero *tmp = this->colaEspera->primero;
+    while(tmp != NULL){
+        QString placaDeMiTren = tmp->ticketsComprados->primero->transporte->placa;
+        Viaje *tmp2 = this->colaViajes->primero;
+        while(tmp2 != NULL){
+            if(tmp2->transporte->placa == placaDeMiTren){
+                //Calcular el espacio del tren y despues agregarlo
+                if(calcEspacio(tmp, tmp2->transporte)){
+                    tmp2->transporte->listaAsientos->Push(tmp);
+                    //eliminar el pasajero de la cola de espera.
+                }
+                else{
+                    this->colaTicket->Push(tmp);
+                    //eliminar el pasajero de la cola de espera.
+                }
+                break;
+            }
+            else{
+                tmp2 = tmp2->siguiente;
+            }
+        }
+        tmp = tmp->siguiente;
+    }
 }
-void Principal::EliminarViaje(Viaje *viaje){
-    Viaje *tmp = this->colaViajes->primero;
-    Viaje *var1 = this->colaViajes->primero;
-    if (viaje==tmp){
-        tmp->siguiente=tmp->siguiente;
+
+bool Principal::calcEspacio(Pasajero *cliente, Tren *tren){
+    int pesoCliente = cliente->peso;
+    int pesoBodega = 0;
+    Equipaje *tmp = cliente->equipaje->primero;
+    while(tmp != NULL){
+        if(tmp->isInHand){
+            pesoCliente += tmp->peso;
+        }
+        else{
+            pesoBodega += tmp->peso;
+        }
+        tmp = tmp->siguiente;
     }
-    while(tmp!=NULL){
-        tmp=tmp->siguiente;
-    }
-    if (viaje==tmp){
-        tmp=NULL;
+    if(pesoCliente > tren->pesoPasajero && pesoBodega > tren->pesoBodega){
+        return false;
     }
     else{
-        while(var1->siguiente!=viaje){
-            var1=var1->siguiente;
+        tren->pesoBodega -= pesoBodega;
+        tren->pesoPasajero -= pesoCliente;
+        return true;
+    }
+}
+
+void Principal::EliminarViaje(Viaje *viaje){
+    qDebug() << "viaje: " << viaje->transporte->destino;
+    qDebug() << "Entra a Elimninar";
+    Viaje *tmp = this->colaViajes->primero;
+    Viaje *var1 = this->colaViajes->primero;
+    if (viaje == tmp){
+        tmp->siguiente = tmp->siguiente;
+    }
+    while(tmp->siguiente != NULL){
+        qDebug() << "Entra a while";
+        tmp = tmp->siguiente;
+    }
+    if (viaje == tmp){
+        qDebug() << "Entra a If";
+        tmp = NULL;
+    }
+    else{
+        qDebug() << "Entra a Else";
+        while(var1->siguiente != viaje){
+            qDebug() << "Entra a while 2";
+            var1 = var1->siguiente;
         }
-        var1->siguiente=viaje->siguiente;
+        if(viaje->siguiente == NULL){
+            qDebug() << "Viaje es NULL";
+        }
+        var1->siguiente = viaje->siguiente;
     }
 }
 
 void Principal::RevisarFin(){
     QDateTime actual = QDateTime::currentDateTime();
     Viaje *tmp = this->colaViajes->primero;
-    while(tmp!=NULL){
+    while(tmp != NULL){
         if(tmp->final.operator >=(actual)){
             EliminarViaje(tmp);
         }
         else{
-            tmp=tmp->siguiente;
+            tmp = tmp->siguiente;
         }
     }
 }

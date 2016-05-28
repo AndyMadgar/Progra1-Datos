@@ -11,7 +11,7 @@ void Hilo::run(){
         qDebug() << "Tiempo de programa: " << i;
         i++;
         this->ventanaPrincipal->actualizar();
-       // this->ventanaPrincipal->abordarLosTrenes();
+        //this->ventanaPrincipal->abordarLosTrenes();
         //this->ventanaPrincipal->RevisarFin();
         this->sleep(1);
     }
