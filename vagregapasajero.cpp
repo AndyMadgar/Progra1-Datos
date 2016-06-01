@@ -1,33 +1,30 @@
 #include "vagregapasajero.h"
 #include "ui_vagregapasajero.h"
-#include "principal.h"
 #include "vagregaequipaje.h"
-#include <QDebug>
+#include "pasajero.h"
+#include "QDebug"
 
-vagregapasajero::vagregapasajero(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::vagregapasajero)
-{
-    ui->setupUi(this);
+vagregapasajero::vagregapasajero(QWidget *parent):QDialog(parent),ui(new Ui::vagregapasajero){
+  ui->setupUi(this);
 }
 
-vagregapasajero::~vagregapasajero()
-{
+vagregapasajero::~vagregapasajero(){
     delete ui;
 }
 
-void vagregapasajero::on_btnVolver_clicked()
-{
-    Principal *p = new Principal();
-    p->colaEspera = this->colaEspera;
-    p->colaTicket = this->colaTicket;
-    p->colaTrenes = this->colaTrenes;
-    p->show();
+void vagregapasajero::on_btnVolver_clicked(){
+
+    this->colaTicket->Push(this->amo);
     this->close();
 }
 
-void vagregapasajero::on_btnAgregar_clicked()
-{
+/*
+ * Funcion que se ejecuta cuando se le da clic al boton agregar, carga los datos para crear un nuevo pasajero
+ * Entradas: Ninguna
+ * Salidas: Ninguna
+*/
+void vagregapasajero::on_btnAgregar_clicked(){
+
     QString nombre = ui->txfNombre->text();
     QString apellido = ui->txfApellidos->text();
     QString nacio = ui->txfNacio->text();
@@ -36,15 +33,26 @@ void vagregapasajero::on_btnAgregar_clicked()
     int telf = ui->txfTelefono->text().toInt();
     int peso = ui->txfPeso->text().toInt();
     int estatura = ui->txfEstatura->text().toInt();
+    int canTickets=ui->spinnerCantTickets->value();
 
-    Pasajero *nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino);
+    Pasajero *nuevo = new Pasajero(nombre, apellido, id, telf, nacio, peso, estatura, destino,canTickets);
+    this->amo=nuevo;
+    qDebug()<<this->amo->nombre;
+    //Desactivar todos los campos editables y ponerles la informacion del pasajero - W.I.P
+    ui->btnAgregarMaleta->setEnabled(true);
+    ui->btnAgregar->setEnabled(false);
+}
 
+/*
+ * Funcion que se ejecuta cuando se le da clic al boton agregar maleta, muestra la ventana agregar maleta.
+ * Entradas: Ninguna
+ * Salidas: Ninguna
+*/
+void vagregapasajero::on_btnAgregarMaleta_clicked(){
     vagregaequipaje *v = new vagregaequipaje();
-    v->colaEspera = this->colaEspera;
-    v->colaTicket = this->colaTicket;
-    v->colaTrenes = this->colaTrenes;
-    v->amo = nuevo;
+    v->amo = this->amo;
     this->hide();
-    v->exec();
-    this->close();
+    v->show();
+    //HILO O ALGO ASI QUE NO HAGA NADA MIENTRAS LA VENTANA ESTA ABIERTA
+    this->show();
 }

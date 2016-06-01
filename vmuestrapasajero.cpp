@@ -15,17 +15,12 @@ vmuestrapasajero::~vmuestrapasajero()
     delete ui;
 }
 
-void vmuestrapasajero::on_btnVolver_clicked()
-{
-    Principal *p = new Principal();
-    p->colaEspera = this->colaEspera;
-    p->colaTicket = this->colaTicket;
-    p->colaTrenes = this->colaTrenes;
-    p->show();
-    this->close();
-}
-
-void vmuestrapasajero::on_btnActualizar_clicked()
+/*
+ * Funcion que se ejecuta cuando se le da clic al boton actualizar, muetra los datos en la ventana correspondiente
+ * Entradas: Ninguna
+ * Salidas: Ninguna
+*/
+void vmuestrapasajero::actualizar()
 {
     ui->txfApellido->setText(this->amo->apellidos);
     ui->txfDestino->setText(this->amo->destino);

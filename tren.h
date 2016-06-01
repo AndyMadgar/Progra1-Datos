@@ -4,27 +4,25 @@
 #include "pasajero.h"
 #include "equipaje.h"
 
+/*
+ * Instituto Tecnologico de Costa Rica
+ * Estructura de Datos
+ * Lista Doble Enlazada
+ * Para Tren
+*/
 class Tren{
 public:
+    //Declaracion de atributos
     class listaPasajero *listaAsientos;
     class listaEquipaje *bodega;
     QString destino;
     QString capitan;
     QString placa;
-    int pesoBodega=500;
-    int pesoPasajero=300;
-    class Tren *siguiente;
-    Tren(QString, QString, int);
-    bool calcEspacio(Pasajero*);
-};
+    int pesoBodega;
+    int pesoPasajero;
+    //Constructor
+    Tren(QString, QString, QString);
 
-class listaTrenes{
-public:
-    class Tren *primero;
-    listaTrenes(){primero = NULL;}
-    bool listaVacia(){return primero == NULL;}
-    void insertar(Tren *);
-    Tren *buscar(QString);
 };
 
 #endif // TREN_H

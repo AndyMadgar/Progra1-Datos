@@ -3,7 +3,12 @@
 #include "ticket.h"
 #include <QDebug>
 
-Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QString pNacionalidad, int pPeso, int pEstatura, QString pDestino){
+/*
+ * Contructor
+ * Entradas: Datos necesarios para crear el pasajero
+ * Salidas: ninguna
+*/
+Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QString pNacionalidad, int pPeso, int pEstatura, QString pDestino,int pCant){
     this->nombre = pNombre;
     this->apellidos = pApellido;
     this->ID = pID;
@@ -12,24 +17,103 @@ Pasajero::Pasajero(QString pNombre, QString pApellido, int pID, int pTel, QStrin
     this->peso = pPeso;
     this->estatura = pEstatura;
     this->destino = pDestino;
+    this->cantTickets = pCant;
+    this->ticketsComprados = new listaTickets();
     this->equipaje = new listaEquipaje();
-    this->tickets = new listaTickets();
     this->siguiente = NULL;
+    this->anterior = NULL;
 }
 
-void listaPasajero::insertar(Pasajero *pPasajero){
+/*
+ * Funcion que se encarga de insertar un nuevo pasajero a la lista
+ * Entradas: El pasajero a insertar
+ * Salidas: Ninguna
+ * Restricciones: El pasajero a insertar no puede ser nulo.
+*/
+void listaPasajero::Push(Pasajero *pPasajero){
     if(listaVacia()){
-        primero = pPasajero;
+        this->primero = pPasajero;
+        this->primero->anterior = NULL;
     }
     else{
-        Pasajero *tmp = primero;
+        Pasajero *tmp = this->primero;
         while(tmp->siguiente != NULL){
             tmp = tmp->siguiente;
         }
         tmp->siguiente = pPasajero;
+        tmp->siguiente->anterior = tmp;
     }
 }
 
+/*
+ * Funcion que se encarga de eliminar un pasajero dado de la lista
+ * Entradas: El pasajero a eliminar
+ * Salidas: Ninguna
+ * Restricciones: El pasajero a elimnar no puede ser nulo
+*/
+void listaPasajero::eliminar(Pasajero *cliente){
+    if(listaVacia()){
+        return;
+    }
+    else{
+        Pasajero *tmp = this->primero;
+        while(tmp != NULL){
+            if(tmp == cliente){
+                if((tmp->anterior == NULL) && (tmp->siguiente != NULL)){
+                    qDebug() << "Elimina el primero";
+                    this->primero->siguiente->anterior = NULL;
+                    this->primero = this->primero->siguiente;
+                    break;
+                }
+                else if(tmp->anterior == NULL && tmp->siguiente == NULL){
+                    qDebug() << "Solo un elemento";
+                    this->primero = NULL;
+                    break;
+                }
+                else if((tmp->siguiente == NULL) && (tmp->anterior != NULL)){
+                    qDebug() << "Elimina el ultimo";
+                    tmp->anterior->siguiente = NULL;
+                    tmp->anterior = NULL;
+                    break;
+                }
+                else if(tmp->siguiente != NULL && tmp->anterior != NULL){
+                    qDebug() << "Elimina en medio";
+                    tmp->anterior->siguiente = tmp->siguiente;
+                    tmp->siguiente->anterior = tmp->anterior;
+                    break;
+                }
+            }
+            tmp = tmp->siguiente;
+        }
+    }
+    qDebug() << "Sale de la funcion";
+    this->mostrar();
+}
+
+/*
+ * Funcion que se encarga de mostrar los elementos de la lista
+ * Entradas: Ninguna
+ * Salidas: Ninguna
+*/
+void listaPasajero::mostrar(){
+    if(listaVacia()){
+        qDebug() << "La lista es vacia -.-";
+    }
+    else{
+        Pasajero *tmp = this->primero;
+        while(tmp != NULL){
+            qDebug() << "Mostrando el ID: " << tmp->ID;
+            tmp = tmp->siguiente;
+        }
+    }
+}
+
+
+/*
+ * Funcion que se encarga buscar un pasajero en la lista de pasajeros
+ * Entradas: La Id del pasajero a buscar
+ * Salidas: El pasajero encontrado
+*/
 Pasajero *listaPasajero::buscar(int id){
     if(listaVacia()){
         return NULL;
@@ -45,60 +129,5 @@ Pasajero *listaPasajero::buscar(int id){
             }
         }
         return NULL;
-    }
-}
-
-int listaPasajero::cuentaPos(int id){
-    int pos = 0;
-    if(listaVacia()){
-        return pos;
-    }
-    else{
-        Pasajero *tmp = primero;
-        while(tmp != NULL){
-            if(tmp->ID == id){
-                return pos;
-            }
-            pos++;
-            tmp = tmp->siguiente;
-        }
-        return 0;
-    }
-}
-
-void listaPasajero::eliminar(int pos){
-    if(pos == 0){
-        return;
-    }
-    else{
-        Pasajero *tmp = primero;
-        while(tmp != NULL && pos != 1){
-            tmp = tmp->siguiente;
-            pos--;
-        }
-        tmp->siguiente = tmp->siguiente->siguiente;
-    }
-    return;
-}
-
-void listaPasajero::Mostrar(){
-    if(listaVacia()){
-        qDebug() << "No hay elementos en la lista";
-        return;
-    }
-    else{
-        Pasajero *tmp = primero;
-        while(tmp != NULL){
-            qDebug() << "Nombre: " << tmp->nombre;
-            qDebug() << "Apellido: " << tmp->apellidos;
-            qDebug() << "ID: " << tmp->ID;
-            qDebug() << "Telefono: " << tmp->telefono;
-            qDebug() << "Nacionalidad: " << tmp->nacionalidad;
-            qDebug() << "Peso: " << tmp->peso;
-            qDebug() << "Estatura: " << tmp->estatura;
-            qDebug() << "Destino: " << tmp->destino;
-            qDebug() << "\n";
-            tmp = tmp->siguiente;
-        }
     }
 }
